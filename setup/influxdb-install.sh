@@ -76,9 +76,10 @@ apt-get install -y lsb-release &>/dev/null
 apt-get install -y gnupg2 &>/dev/null
 msg_ok "Installed Dependencies"
 
-msg_info "Setting up InfluxDB Repository"
+msg_info "Setting up InfluxDB & Chronograf Repository"
 wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add - &>/dev/null
 echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list &>/dev/null
+echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/chronograf.list &>/dev/null
 msg_ok "Set up InfluxDB Repository"
 
 msg_info "Installing InfluxDB"
@@ -89,6 +90,10 @@ msg_ok "Installed InfluxDB"
 msg_info "Installing Telegraf"
 apt-get install -y telegraf &>/dev/null
 msg_ok "Installed Telegraf"
+
+msg_info "Installing Chronograf"
+apt-get install -y chronograf &>/dev/null
+msg_ok "Installed Chronograf"
 
 PASS=$(grep -w "root" /etc/shadow | cut -b6);
   if [[ $PASS != $ ]]; then
